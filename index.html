@@ -165,9 +165,9 @@
   }
 
   /* MARQUEE */
-  .marquee-wrap { background: var(--dark); padding: 14px 0; overflow: hidden; }
-  .marquee-track { display: inline-flex; animation: marquee 22s linear infinite; }
-  .marquee-item { display: inline-flex; align-items: center; gap: 20px; padding: 0 28px; color: white; font-size: 14px; font-weight: 700; }
+  .marquee-wrap { background: var(--dark); padding: 14px 0; overflow: hidden; white-space: nowrap; }
+  .marquee-track { display: inline-flex; animation: marquee 22s linear infinite; white-space: nowrap; flex-wrap: nowrap; }
+  .marquee-item { display: inline-flex; align-items: center; gap: 20px; padding: 0 28px; color: white; font-size: 14px; font-weight: 700; white-space: nowrap; flex-shrink: 0; }
   .marquee-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
   .md-orange { background: var(--orange); }
   .md-green { background: var(--green); }
