@@ -150,7 +150,7 @@
     33% { border-radius: 40% 60% 45% 55% / 60% 40% 55% 45%; }
     66% { border-radius: 55% 45% 60% 40% / 45% 55% 50% 50%; }
   }
-  .hero-emoji { font-size: 130px; animation: float 3.5s ease-in-out infinite; position: relative; z-index: 2; }
+  .hero-emoji { font-size: 130px; animation: float 3.5s ease-in-out infinite; position: relative; z-index: 2; transition: opacity 0.4s ease, transform 0.4s ease; }
   @keyframes float {
     0%, 100% { transform: translateY(0) rotate(-3deg); }
     50% { transform: translateY(-16px) rotate(3deg); }
@@ -382,8 +382,8 @@
 <section class="hero">
   <div class="hero-left">
     <div class="hero-tag">🐯 Пекарня · Петергоф · с 2018</div>
-    <h1 class="hero-title">Зашёл за кофе –<br>вышел с <span class="accent2">пакетом счастья</span></h1>
-    <p class="hero-sub">Не просто пекарня – твоя ежедневная радость.</p>
+    <h1 class="hero-title">Зашёл за кофе —<br>вышел с <span class="accent2">пакетом счастья</span></h1>
+    <p class="hero-sub">Не просто пекарня — твоя ежедневная радость.</p>
     <p class="hero-sub2">Свежая выпечка, в которую влюбляешься с первого укуса. Три точки в Петергофе — открыты с 8 утра.</p>
     <div class="hero-btns">
       <a href="#menu" class="btn-primary">Смотреть меню 🥐</a>
@@ -391,7 +391,7 @@
     </div>
   </div>
   <div class="hero-right">
-    <div class="hero-blob"><span class="hero-emoji">🧁</span></div>
+    <div class="hero-blob"><span class="hero-emoji" id="heroEmoji">🧁</span></div>
     <div class="hero-bubble bubble-1">Осторожно: отсюда невозможно уйти без десерта 😅</div>
     <div class="hero-bubble bubble-2">Открыто с 8:00 ☀️</div>
     <div class="hero-bubble bubble-3">☕🥐🍰</div>
@@ -554,6 +554,22 @@
 </footer>
 
 <script>
+  // Rotating hero emojis
+  const emojis = ['🧁', '🥐', '☕', '🎂', '🍰', '🍪', '🥖', '🍩', '🧇', '🫖'];
+  let emojiIndex = 0;
+  const heroEmoji = document.getElementById('heroEmoji');
+
+  setInterval(() => {
+    heroEmoji.style.opacity = '0';
+    heroEmoji.style.transform = 'scale(0.7) rotate(10deg)';
+    setTimeout(() => {
+      emojiIndex = (emojiIndex + 1) % emojis.length;
+      heroEmoji.textContent = emojis[emojiIndex];
+      heroEmoji.style.opacity = '1';
+      heroEmoji.style.transform = '';
+    }, 400);
+  }, 2000);
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
