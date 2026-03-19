@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tijgerbol — Пекарня в Петергофе</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #FF6330;
+    --green: #A9FF31;
+    --pink: #FFADEE;
+    --dark: #1A1008;
+    --white: #FFFDF9;
+    --orange-light: #FFF0EB;
+    --green-light: #F2FFE0;
+    --pink-light: #FFF0FA;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--white);
+    color: var(--dark);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 16px 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 253, 249, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 2px solid var(--pink);
+  }
+
+  .nav-logo {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--orange);
+    text-decoration: none;
+  }
+
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--dark);
+    font-size: 15px;
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--orange); }
+
+  .nav-btn {
+    background: var(--orange);
+    color: white;
+    text-decoration: none;
+    padding: 10px 24px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 700;
+    transition: all 0.2s;
+    font-family: 'Nunito', sans-serif;
+  }
+
+  .nav-btn:hover { background: var(--dark); transform: scale(1.04); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    padding-top: 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: var(--pink);
+    opacity: 0.25;
+    top: -200px; right: -150px;
+    pointer-events: none;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 48px 80px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--pink);
+    color: var(--dark);
+    padding: 8px 18px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 700;
+    width: fit-content;
+    margin-bottom: 28px;
+  }
+
+  .hero-title {
+    font-family: 'Fredoka', sans-serif;
+    font-size: clamp(48px, 5.5vw, 76px);
+    font-weight: 700;
+    line-height: 1.05;
+    color: var(--dark);
+    margin-bottom: 24px;
+  }
+
+  .accent2 {
+    color: var(--orange);
+    position: relative;
+    display: inline-block;
+  }
+
+  .accent2::after {
+    content: '';
+    position: absolute;
+    bottom: 4px; left: 0; right: 0;
+    height: 8px;
+    background: var(--green);
+    border-radius: 4px;
+    z-index: -1;
+  }
+
+  .hero-sub {
+    font-size: 17px;
+    line-height: 1.75;
+    color: #666;
+    max-width: 420px;
+    margin-bottom: 44px;
+    font-weight: 400;
+  }
+
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--orange);
+    color: white;
+    text-decoration: none;
+    padding: 16px 36px;
+    border-radius: 100px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    transition: all 0.25s;
+  }
+
+  .btn-primary:hover {
+    background: var(--dark);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(255,99,48,0.3);
+  }
+
+  .btn-secondary {
+    background: var(--green);
+    color: var(--dark);
+    text-decoration: none;
+    padding: 16px 36px;
+    border-radius: 100px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    transition: all 0.25s;
+  }
+
+  .btn-secondary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(169,255,49,0.35); }
+
+  .hero-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 40px;
+  }
+
+  .hero-blob {
+    width: 420px; height: 420px;
+    background: var(--orange);
+    border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: morph 8s ease-in-out infinite;
+    position: relative;
+  }
+
+  @keyframes morph {
+    0%, 100% { border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%; }
+    33% { border-radius: 40% 60% 45% 55% / 60% 40% 55% 45%; }
+    66% { border-radius: 55% 45% 60% 40% / 45% 55% 50% 50%; }
+  }
+
+  .hero-emoji {
+    font-size: 130px;
+    animation: float 3.5s ease-in-out infinite;
+    position: relative;
+    z-index: 2;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50% { transform: translateY(-16px) rotate(3deg); }
+  }
+
+  .hero-bubble {
+    position: absolute;
+    border-radius: 20px;
+    padding: 14px 20px;
+    font-weight: 700;
+    font-size: 14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    white-space: nowrap;
+    font-family: 'Nunito', sans-serif;
+  }
+
+  .bubble-1 { top: 80px; right: 30px; background: var(--pink); animation: bobble 4s ease-in-out infinite; }
+  .bubble-2 { bottom: 100px; left: 10px; background: var(--green); animation: bobble 4s ease-in-out infinite 1s; }
+  .bubble-3 { bottom: 60px; right: 60px; background: white; border: 2px solid var(--orange); animation: bobble 4s ease-in-out infinite 2s; font-size: 22px; }
+
+  @keyframes bobble {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* MARQUEE */
+  .marquee-wrap { background: var(--dark); padding: 14px 0; overflow: hidden; }
+  .marquee-track { display: inline-flex; animation: marquee 18s linear infinite; }
+
+  .marquee-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 28px;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .marquee-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .md-orange { background: var(--orange); }
+  .md-green { background: var(--green); }
+  .md-pink { background: var(--pink); }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ABOUT */
+  .about {
+    padding: 120px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .tag-pill {
+    display: inline-flex;
+    background: var(--green);
+    color: var(--dark);
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 44px;
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--dark);
+    margin-bottom: 20px;
+  }
+
+  .section-title .hl { color: var(--orange); }
+
+  .body-text { font-size: 16px; line-height: 1.8; color: #666; margin-bottom: 36px; font-weight: 400; }
+
+  .stats-row { display: flex; gap: 16px; }
+
+  .stat {
+    background: var(--orange-light);
+    border-radius: 20px;
+    padding: 20px 24px;
+    text-align: center;
+    flex: 1;
+  }
+
+  .stat-num {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--orange);
+    line-height: 1;
+  }
+
+  .stat-label { font-size: 12px; color: #888; font-weight: 600; margin-top: 4px; }
+
+  .about-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .about-card { border-radius: 24px; padding: 32px 28px; }
+  .about-card.c-orange { background: var(--orange); color: white; }
+  .about-card.c-green { background: var(--green); color: var(--dark); }
+  .about-card.c-pink { background: var(--pink); color: var(--dark); }
+  .about-card.c-dark { background: var(--dark); color: white; }
+
+  .about-card-icon { font-size: 36px; margin-bottom: 12px; display: block; }
+
+  .about-card-title {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .about-card-sub { font-size: 13px; opacity: 0.75; font-weight: 400; line-height: 1.5; }
+
+  /* MENU */
+  .menu { padding: 0 80px 120px; }
+
+  .menu-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; }
+
+  .see-all {
+    background: var(--pink-light);
+    color: var(--orange);
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 700;
+    transition: all 0.2s;
+    border: 2px solid var(--pink);
+  }
+
+  .see-all:hover { background: var(--pink); }
+
+  .menu-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+  .menu-card {
+    background: var(--white);
+    border-radius: 28px;
+    padding: 32px 24px;
+    border: 2px solid #F0EDE8;
+    transition: all 0.25s;
+    cursor: pointer;
+  }
+
+  .menu-card.mc-1:hover { border-color: var(--orange); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(255,99,48,0.15); }
+  .menu-card.mc-2:hover { border-color: var(--green); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(169,255,49,0.2); }
+  .menu-card.mc-3:hover { border-color: var(--pink); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(255,173,238,0.2); }
+  .menu-card.mc-4:hover { border-color: var(--orange); transform: translateY(-4px); }
+
+  .menu-icon-wrap {
+    width: 72px; height: 72px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+
+  .mc-1 .menu-icon-wrap { background: var(--orange-light); }
+  .mc-2 .menu-icon-wrap { background: var(--green-light); }
+  .mc-3 .menu-icon-wrap { background: var(--pink-light); }
+  .mc-4 .menu-icon-wrap { background: var(--orange-light); }
+
+  .menu-card-name { font-family: 'Fredoka', sans-serif; font-size: 20px; font-weight: 600; color: var(--dark); margin-bottom: 8px; }
+  .menu-card-desc { font-size: 13px; color: #888; line-height: 1.6; margin-bottom: 20px; }
+  .menu-card-price { font-family: 'Fredoka', sans-serif; font-size: 22px; font-weight: 700; color: var(--orange); }
+
+  /* ATMOSPHERE */
+  .atmosphere {
+    margin: 0 80px 120px;
+    background: var(--dark);
+    border-radius: 40px;
+    padding: 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .atmosphere::before {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: var(--orange);
+    opacity: 0.08;
+    right: -100px; top: -100px;
+  }
+
+  .atm-tag { background: var(--green); color: var(--dark); display: inline-flex; padding: 6px 16px; border-radius: 100px; font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 20px; }
+
+  .atm-title { font-family: 'Fredoka', sans-serif; font-size: 48px; font-weight: 700; color: white; line-height: 1.1; margin-bottom: 24px; }
+  .atm-title .hl { color: var(--orange); }
+
+  .atm-text { font-size: 15px; line-height: 1.8; color: rgba(255,255,255,0.55); margin-bottom: 40px; }
+
+  .atm-features { display: flex; flex-direction: column; gap: 14px; }
+
+  .atm-feat { display: flex; align-items: center; gap: 14px; color: white; font-size: 15px; font-weight: 600; }
+
+  .atm-feat-icon { width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .fi-1 { background: rgba(255,99,48,0.2); }
+  .fi-2 { background: rgba(169,255,49,0.15); }
+  .fi-3 { background: rgba(255,173,238,0.15); }
+
+  .atm-right { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .atm-block { background: rgba(255,255,255,0.05); border-radius: 24px; padding: 28px 22px; transition: background 0.2s; border: 1px solid rgba(255,255,255,0.06); }
+  .atm-block:hover { background: rgba(255,255,255,0.09); }
+  .atm-block.big { grid-column: 1 / -1; background: rgba(255,99,48,0.12); border-color: rgba(255,99,48,0.2); }
+
+  .atm-block-emoji { font-size: 30px; margin-bottom: 10px; display: block; }
+  .atm-block-title { font-family: 'Fredoka', sans-serif; font-size: 18px; font-weight: 600; color: white; margin-bottom: 4px; }
+  .atm-block-sub { font-size: 12px; color: rgba(255,255,255,0.45); }
+
+  /* ADDRESSES */
+  .addresses { padding: 0 80px 120px; }
+
+  .addr-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 48px; }
+
+  .addr-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+  .addr-card { border-radius: 28px; padding: 40px 32px; transition: transform 0.25s; cursor: pointer; }
+  .addr-card:hover { transform: translateY(-4px); }
+  .addr-card.a1 { background: var(--orange); color: white; }
+  .addr-card.a2 { background: var(--green); color: var(--dark); }
+  .addr-card.a3 { background: var(--pink); color: var(--dark); }
+
+  .addr-num { font-family: 'Fredoka', sans-serif; font-size: 56px; font-weight: 700; opacity: 0.2; line-height: 1; margin-bottom: 20px; }
+  .addr-name { font-family: 'Fredoka', sans-serif; font-size: 26px; font-weight: 700; margin-bottom: 8px; }
+  .addr-street { font-size: 14px; opacity: 0.75; margin-bottom: 20px; line-height: 1.6; }
+
+  .addr-tag { display: inline-flex; padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 700; }
+  .a1 .addr-tag { background: rgba(255,255,255,0.2); color: white; }
+  .a2 .addr-tag { background: rgba(0,0,0,0.1); color: var(--dark); }
+  .a3 .addr-tag { background: rgba(0,0,0,0.08); color: var(--dark); }
+
+  /* CTA */
+  .cta-section {
+    margin: 0 80px 80px;
+    background: var(--orange);
+    border-radius: 40px;
+    padding: 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before { content: '🥐'; position: absolute; font-size: 260px; left: -40px; top: -60px; opacity: 0.08; }
+  .cta-section::after { content: '☕'; position: absolute; font-size: 260px; right: -40px; bottom: -80px; opacity: 0.08; }
+
+  .cta-title { font-family: 'Fredoka', sans-serif; font-size: 52px; font-weight: 700; color: white; margin-bottom: 16px; position: relative; z-index: 1; }
+  .cta-sub { font-size: 17px; color: rgba(255,255,255,0.8); margin-bottom: 40px; position: relative; z-index: 1; }
+
+  .cta-btns { display: flex; gap: 14px; justify-content: center; position: relative; z-index: 1; }
+
+  .cta-btn-white { background: white; color: var(--orange); text-decoration: none; padding: 16px 40px; border-radius: 100px; font-size: 16px; font-weight: 700; font-family: 'Nunito', sans-serif; transition: all 0.25s; }
+  .cta-btn-white:hover { background: var(--dark); color: white; transform: translateY(-2px); }
+
+  .cta-btn-green { background: var(--green); color: var(--dark); text-decoration: none; padding: 16px 40px; border-radius: 100px; font-size: 16px; font-weight: 700; font-family: 'Nunito', sans-serif; transition: all 0.25s; }
+  .cta-btn-green:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.15); }
+
+  /* FOOTER */
+  footer { background: var(--dark); padding: 48px 80px; display: flex; justify-content: space-between; align-items: center; border-radius: 40px 40px 0 0; }
+  .footer-logo { font-family: 'Fredoka', sans-serif; font-size: 26px; font-weight: 700; color: var(--orange); }
+  .footer-text { font-size: 13px; color: rgba(255,255,255,0.3); }
+  .footer-links { display: flex; gap: 20px; }
+  .footer-links a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 14px; font-weight: 600; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--green); }
+
+  .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { height: 320px; }
+    .hero-left { padding: 40px 20px; }
+    .about { grid-template-columns: 1fr; padding: 60px 20px; }
+    .menu { padding: 0 20px 60px; }
+    .menu-grid { grid-template-columns: 1fr 1fr; }
+    .atmosphere { margin: 0 20px 60px; padding: 48px 28px; grid-template-columns: 1fr; }
+    .addresses { padding: 0 20px 60px; }
+    .addr-grid { grid-template-columns: 1fr; }
+    .cta-section { margin: 0 20px 40px; padding: 48px 28px; }
+    .cta-title { font-size: 36px; }
+    footer { flex-direction: column; gap: 16px; text-align: center; padding: 32px 20px; border-radius: 24px 24px 0 0; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Tijgerbol</a>
+  <ul class="nav-links">
+    <li><a href="#menu">Меню</a></li>
+    <li><a href="#atmosphere">Атмосфера</a></li>
+    <li><a href="#addresses">Адреса</a></li>
+  </ul>
+  <a href="#addresses" class="nav-btn">Найти нас →</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">🐯 Пекарня · Петергоф · с 2018</div>
+    <h1 class="hero-title">Место, куда<br>хочется <span class="accent2">вернуться</span></h1>
+    <p class="hero-sub">Свежая выпечка, авторские десерты и кофе — каждый день с 8 утра. Семейная пекарня с душой уже 7 лет.</p>
+    <div class="hero-btns">
+      <a href="#menu" class="btn-primary">Смотреть меню 🥐</a>
+      <a href="#addresses" class="btn-secondary">Найти пекарню</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-blob"><span class="hero-emoji">🧁</span></div>
+    <div class="hero-bubble bubble-1">Открыто с 8:00 ☀️</div>
+    <div class="hero-bubble bubble-2">7 лет в Петергофе 🎉</div>
+    <div class="hero-bubble bubble-3">☕🥐🍰</div>
+  </div>
+</section>
+
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Свежая выпечка <span class="marquee-dot md-orange"></span></span>
+    <span class="marquee-item">Авторские торты <span class="marquee-dot md-green"></span></span>
+    <span class="marquee-item">Specialty кофе <span class="marquee-dot md-pink"></span></span>
+    <span class="marquee-item">Бельгийское мороженое <span class="marquee-dot md-orange"></span></span>
+    <span class="marquee-item">Открываемся в 8:00 <span class="marquee-dot md-green"></span></span>
+    <span class="marquee-item">3 точки в Петергофе <span class="marquee-dot md-pink"></span></span>
+    <span class="marquee-item">Свежая выпечка <span class="marquee-dot md-orange"></span></span>
+    <span class="marquee-item">Авторские торты <span class="marquee-dot md-green"></span></span>
+    <span class="marquee-item">Specialty кофе <span class="marquee-dot md-pink"></span></span>
+    <span class="marquee-item">Бельгийское мороженое <span class="marquee-dot md-orange"></span></span>
+    <span class="marquee-item">Открываемся в 8:00 <span class="marquee-dot md-green"></span></span>
+    <span class="marquee-item">3 точки в Петергофе <span class="marquee-dot md-pink"></span></span>
+  </div>
+</div>
+
+<section class="about">
+  <div class="fade-up">
+    <div class="tag-pill">О нас</div>
+    <h2 class="section-title">Семейная пекарня<br><span class="hl">с душой</span></h2>
+    <p class="body-text">Tijgerbol — это не сеть и не франшиза. Три тёплых места в Петергофе, где каждое утро пекут свежий хлеб, варят хороший кофе и рады всем гостям. Уже 7 лет — и всё ещё с любовью.</p>
+    <div class="stats-row">
+      <div class="stat"><div class="stat-num">7</div><div class="stat-label">лет работы</div></div>
+      <div class="stat"><div class="stat-num">3</div><div class="stat-label">точки</div></div>
+      <div class="stat"><div class="stat-num">8:00</div><div class="stat-label">открываемся</div></div>
+    </div>
+  </div>
+  <div class="about-cards fade-up">
+    <div class="about-card c-orange"><span class="about-card-icon">🥐</span><div class="about-card-title">Каждый день свежее</div><div class="about-card-sub">Печём с утра, не храним вчерашнее</div></div>
+    <div class="about-card c-green"><span class="about-card-icon">☕</span><div class="about-card-title">Specialty кофе</div><div class="about-card-sub">Зерно от Tasty Coffee</div></div>
+    <div class="about-card c-pink"><span class="about-card-icon">🎂</span><div class="about-card-title">Торты на заказ</div><div class="about-card-sub">Фисташковый, Красный бархат и другие</div></div>
+    <div class="about-card c-dark"><span class="about-card-icon">🍨</span><div class="about-card-title">Бельгийское мороженое</div><div class="about-card-sub">Развесное джелато и сорбеты</div></div>
+  </div>
+</section>
+
+<section class="menu" id="menu">
+  <div class="menu-header fade-up">
+    <div><div class="tag-pill">Попробуй</div><h2 class="section-title">Меню</h2></div>
+    <a href="#addresses" class="see-all">Всё в пекарне →</a>
+  </div>
+  <div class="menu-grid fade-up">
+    <div class="menu-card mc-1"><div class="menu-icon-wrap">🥐</div><div class="menu-card-name">Фисташковый круассан</div><div class="menu-card-desc">Воздушный, со сливочным фисташковым кремом и крошкой</div><div class="menu-card-price">135 ₽</div></div>
+    <div class="menu-card mc-2"><div class="menu-icon-wrap">🎂</div><div class="menu-card-name">Торт на заказ</div><div class="menu-card-desc">«Красный бархат», фисташковый, морковный и другие</div><div class="menu-card-price">от 1680 ₽</div></div>
+    <div class="menu-card mc-3"><div class="menu-icon-wrap">☕</div><div class="menu-card-name">Specialty кофе</div><div class="menu-card-desc">Фильтр, эспрессо, раф «Халва», холодный апельсиновый</div><div class="menu-card-price">от 150 ₽</div></div>
+    <div class="menu-card mc-4"><div class="menu-icon-wrap">🍨</div><div class="menu-card-name">Бельгийское мороженое</div><div class="menu-card-desc">Манго, маракуйя, фисташка — развесное джелато</div><div class="menu-card-price">100 ₽</div></div>
+  </div>
+</section>
+
+<section class="atmosphere" id="atmosphere">
+  <div class="fade-up">
+    <div class="atm-tag">Атмосфера</div>
+    <h2 class="atm-title">Уютно,<br>как <span class="hl">дома</span></h2>
+    <p class="atm-text">Запах свежей выпечки, тихая музыка, кружки вместо бумажных стаканчиков. Место, куда заходят не торопясь.</p>
+    <div class="atm-features">
+      <div class="atm-feat"><div class="atm-feat-icon fi-1">☕</div>Напитки подаём в красивых кружках</div>
+      <div class="atm-feat"><div class="atm-feat-icon fi-2">🌿</div>Альтернативное молоко без доплаты</div>
+      <div class="atm-feat"><div class="atm-feat-icon fi-3">🎫</div>Абонемент на кофе — купи сейчас, пей потом</div>
+    </div>
+  </div>
+  <div class="atm-right fade-up">
+    <div class="atm-block big"><span class="atm-block-emoji">🎉</span><div class="atm-block-title">7 лет рядом с вами</div><div class="atm-block-sub">С 2018 года в Новом Петергофе</div></div>
+    <div class="atm-block"><span class="atm-block-emoji">🍰</span><div class="atm-block-title">Дегустации</div><div class="atm-block-sub">Мероприятия для гостей</div></div>
+    <div class="atm-block"><span class="atm-block-emoji">🎁</span><div class="atm-block-title">Подарочные наборы</div><div class="atm-block-sub">Пирожные, эклеры, тарталетки</div></div>
+  </div>
+</section>
+
+<section class="addresses" id="addresses">
+  <div class="addr-header fade-up">
+    <div><div class="tag-pill">Где мы</div><h2 class="section-title">3 пекарни<br><span class="hl">в Петергофе</span></h2></div>
+  </div>
+  <div class="addr-grid fade-up">
+    <div class="addr-card a1"><div class="addr-num">01</div><div class="addr-name">Торговая</div><div class="addr-street">Торговая площадь, 8<br>15 метров от Магнита, жёлтый павильон</div><span class="addr-tag">Открыто · с 8:00</span></div>
+    <div class="addr-card a2"><div class="addr-num">02</div><div class="addr-name">Парковая</div><div class="addr-street">Парковая, 22 к2<br>Новый Петергоф</div><span class="addr-tag">Открыто · с 8:00</span></div>
+    <div class="addr-card a3"><div class="addr-num">03</div><div class="addr-name">Разводная</div><div class="addr-street">Разводная, 29<br>Новый Петергоф</div><span class="addr-tag">Открыто · с 8:00</span></div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <h2 class="cta-title">Приходи на кофе ☕</h2>
+  <p class="cta-sub">Оставь отзыв на Яндекс Картах — и получи бесплатный напиток</p>
+  <div class="cta-btns">
+    <a href="https://vk.com/tijgerbol" class="cta-btn-white">Мы ВКонтакте</a>
+    <a href="#addresses" class="cta-btn-green">Найти пекарню →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Tijgerbol</div>
+  <div class="footer-text">Пекарня · Петергоф · с 2018 года</div>
+  <div class="footer-links">
+    <a href="#">ВКонтакте</a>
+    <a href="#">Instagram</a>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 120);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
